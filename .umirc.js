@@ -5,12 +5,23 @@ export default {
   plugins: [
     // ref: https://umijs.org/plugin/umi-plugin-react.html
     ['umi-plugin-react', {
-      antd: false,
+      antd: true,
       dva: true,
-      dynamicImport: { webpackChunkName: true },
-      title: 'ora-umi',
+      locale: {},
+      library: 'react',
+      dynamicImport: {
+        webpackChunkName: true,
+        loadingComponent: './components/Loading',
+      },
+      // title: 'ora-umi',
       dll: false,
-      
+      pwa: false,
+      // hd: true,
+      fastClick: true,
+      headScripts: [],
+      metas: [
+        { charset: 'utf-8' },
+      ],
       routes: {
         exclude: [
           /models\//,
@@ -22,4 +33,36 @@ export default {
       },
     }],
   ],
+  // History model
+  history: 'hash',
+  publicPath: './',
+  cssPublicPath: './',
+  runtimePublicPath: true,
+  targets: {
+    ie: 9,
+  },
+  // global
+  context: {
+    title: 'Ora Umi'
+  },
+  exportStatic: true,
+  // webpack
+  theme: './src/theme/index.js',
+  routes: [
+    {
+      path: '/login', 
+      component: './login', 
+    },
+    { 
+      path: '/', 
+      component: '../layouts', 
+      routes: [
+        { path: './', component: './index' },
+        { path: './help', component: './help' },
+      ], 
+    },
+  ],
+  chainWebpack: function (config, { webpack }) { 
+    // webpack config
+  },
 }

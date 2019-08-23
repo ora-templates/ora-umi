@@ -1,12 +1,22 @@
-import styles from './index.css';
+import { Component } from 'react';
+import withRouter from 'umi/withRouter';
+import './index.css'
 
-function BasicLayout(props) {
-  return (
-    <div className={styles.normal}>
-      <h1 className={styles.title}>Yay! Welcome to umi!</h1>
-      {props.children}
-    </div>
-  );
+class Layout extends Component {
+  componentDidUpdate(prevProps) {
+    if (this.props.location !== prevProps.location) {
+      window.scrollTo(0, 0);
+    }
+  }
+
+  render() {
+    const { children } = this.props;
+
+    return <>
+      <h3>Welcome To Ora-umi</h3>
+      { children }
+    </>
+  }
 }
 
-export default BasicLayout;
+export default withRouter(Layout);
